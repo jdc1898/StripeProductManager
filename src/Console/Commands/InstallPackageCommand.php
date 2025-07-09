@@ -61,7 +61,6 @@ class InstallPackageCommand extends Command
             // Seed permissions
             $this->seedPermissions();
 
-
             $this->newLine();
             $this->info('✅ Package installed successfully!');
             $this->newLine();
@@ -96,7 +95,7 @@ class InstallPackageCommand extends Command
 
         $dependencies = [
             'spatie/laravel-permission',
-            'stripe/stripe-php',
+            'laravel/cashier',
             'filament/filament',
             'flowframe/laravel-trend',
         ];
@@ -107,7 +106,7 @@ class InstallPackageCommand extends Command
             // Check if the package is installed by looking for key classes
             $classMap = [
                 'spatie/laravel-permission' => 'Spatie\Permission\PermissionServiceProvider',
-                'stripe/stripe-php' => 'Stripe\Stripe',
+                'laravel/cashier' => 'Laravel\Cashier\CashierServiceProvider',
                 'filament/filament' => 'Filament\FilamentServiceProvider',
                 'flowframe/laravel-trend' => 'Flowframe\Trend\TrendServiceProvider',
             ];
@@ -136,18 +135,13 @@ class InstallPackageCommand extends Command
             $this->info('✅ All dependencies are installed');
         }
 
-        // Try to install Filament if not already installed
-        if (! class_exists('Filament\FilamentServiceProvider')) {
-            $this->line('Installing Filament...');
-
-            try {
-                $this->call('filament:install', ['--panels' => true, '--no-interaction' => true]);
-            } catch (\Exception $e) {
-                $this->warn('Filament installation failed. Please install manually: composer require filament/filament');
-            }
+        try {
+            $this->call('filament:install', ['--panels' => true, '--no-interaction' => true]);
+        } catch (\Exception $e) {
+            $this->warn('Filament installation failed. Please install manually: composer require filament/filament');
         }
-    }
 
+    }
 
     /**
      * Publish package assets
@@ -159,6 +153,11 @@ class InstallPackageCommand extends Command
         // Publish Spatie permissions
         $this->call('vendor:publish', [
             '--provider' => 'Spatie\Permission\PermissionServiceProvider',
+        ]);
+
+        // Publish Cashier
+        $this->call('vendor:publish', [
+            'tag' => 'cashier-config',
         ]);
 
         // Publish package assets
@@ -224,8 +223,6 @@ class InstallPackageCommand extends Command
             $this->warn('⚠️  Note: Published config will override package config. Update settings as needed.');
         }
 
-
-
         $this->info('✅ Assets published successfully');
     }
 
@@ -264,7 +261,6 @@ class InstallPackageCommand extends Command
             throw $e;
         }
     }
-
 
     /**
      * Display next steps for the user
@@ -348,7 +344,6 @@ class InstallPackageCommand extends Command
         $this->line('   • php artisan stripe-product-manager:fix-namespaces - Fix published file namespaces');
     }
 
-
     private function updateBootstrapProviders(): void
     {
         $this->info('🔧 Updating bootstrap providers...');
@@ -357,6 +352,7 @@ class InstallPackageCommand extends Command
 
         if (! file_exists($path)) {
             $this->error('bootstrap/providers.php not found.');
+
             return;
         }
 
@@ -392,7 +388,7 @@ class InstallPackageCommand extends Command
             $new[] = $provider;
             if ($provider === $after) {
                 foreach ($insert as $i) {
-                    if (!in_array($i, $original)) {
+                    if (! in_array($i, $original)) {
                         $new[] = $i;
                     }
                 }

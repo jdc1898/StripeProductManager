@@ -2,9 +2,8 @@
 
 namespace Fullstack\StripeProductManager\Console\Commands\Stripe;
 
-use Illuminate\Console\Command;
 use App\Services\Stripe\StripeService;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Console\Command;
 
 class FetchStripeTaxCodes extends Command
 {
@@ -50,6 +49,7 @@ class FetchStripeTaxCodes extends Command
 
             if (empty($taxCodes->data)) {
                 $hasMore = false;
+
                 break;
             }
 
@@ -58,7 +58,7 @@ class FetchStripeTaxCodes extends Command
 
             // Check if there are more pages
             $hasMore = $taxCodes->has_more;
-            if ($hasMore && !empty($taxCodes->data)) {
+            if ($hasMore && ! empty($taxCodes->data)) {
                 $startingAfter = end($taxCodes->data)->id;
             }
 
@@ -67,6 +67,7 @@ class FetchStripeTaxCodes extends Command
 
         if (empty($allTaxCodes)) {
             $this->warn('No tax codes found in Stripe.');
+
             return 0;
         }
 
@@ -74,7 +75,7 @@ class FetchStripeTaxCodes extends Command
             return [
                 $taxCode->id,
                 $taxCode->name ?? 'N/A',
-                $taxCode->description ? substr($taxCode->description, 0, 50) . '...' : 'N/A',
+                $taxCode->description ? substr($taxCode->description, 0, 50).'...' : 'N/A',
             ];
         }, $allTaxCodes);
 
@@ -110,8 +111,9 @@ class FetchStripeTaxCodes extends Command
             $this->info("Saved tax codes: Created $created, Updated $updated");
         }
 
-        $this->info("Total tax codes fetched: " . count($allTaxCodes));
+        $this->info('Total tax codes fetched: '.count($allTaxCodes));
         $this->info('Done!');
+
         return 0;
     }
 }

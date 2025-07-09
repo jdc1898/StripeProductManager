@@ -2,8 +2,8 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripeDiscountResource\Pages;
 
-use Filament\Resources\Pages\ViewRecord;
 use App\Filament\SuperAdmin\Resources\StripeDiscountResource;
+use Filament\Resources\Pages\ViewRecord;
 
 class ViewStripeDiscount extends ViewRecord
 {

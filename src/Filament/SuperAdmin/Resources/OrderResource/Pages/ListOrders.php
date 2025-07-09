@@ -2,9 +2,9 @@
 
 namespace App\Filament\SuperAdmin\Resources\OrderResource\Pages;
 
+use App\Filament\SuperAdmin\Resources\OrderResource;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\SuperAdmin\Resources\OrderResource;
 
 class ListOrders extends ListRecords
 {

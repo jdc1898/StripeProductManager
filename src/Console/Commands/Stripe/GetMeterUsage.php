@@ -4,7 +4,6 @@ namespace Fullstack\StripeProductManager\Console\Commands\Stripe;
 
 use App\Models\User;
 use Illuminate\Console\Command;
-use Laravel\Cashier\Exceptions\IncompletePayment;
 
 class GetMeterUsage extends Command
 {
@@ -36,8 +35,9 @@ class GetMeterUsage extends Command
 
         // Find the user
         $user = $this->findUser($userIdentifier);
-        if (!$user) {
+        if (! $user) {
             $this->error("User not found: {$userIdentifier}");
+
             return 1;
         }
 
@@ -45,8 +45,9 @@ class GetMeterUsage extends Command
 
         // Get the subscription
         $subscription = $user->subscription($subscriptionName);
-        if (!$subscription) {
+        if (! $subscription) {
             $this->error("No active subscription found for user with name: {$subscriptionName}");
+
             return 1;
         }
 
@@ -57,7 +58,8 @@ class GetMeterUsage extends Command
             $usage = $this->getUsageForPeriod($subscription, $period);
             $this->displayUsage($usage, $period);
         } catch (\Exception $e) {
-            $this->error("Error getting usage: " . $e->getMessage());
+            $this->error('Error getting usage: '.$e->getMessage());
+
             return 1;
         }
 
@@ -121,7 +123,8 @@ class GetMeterUsage extends Command
         $this->line(str_repeat('-', 50));
 
         if (empty($usage)) {
-            $this->warn("No usage data found for this period.");
+            $this->warn('No usage data found for this period.');
+
             return;
         }
 
@@ -141,6 +144,6 @@ class GetMeterUsage extends Command
 
         // Show total usage
         $totalUsage = collect($usage)->sum('total_usage');
-        $this->info("\n📈 Total Usage: " . number_format($totalUsage));
+        $this->info("\n📈 Total Usage: ".number_format($totalUsage));
     }
 }

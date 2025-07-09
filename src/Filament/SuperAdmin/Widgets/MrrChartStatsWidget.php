@@ -2,11 +2,11 @@
 
 namespace App\Filament\SuperAdmin\Widgets;
 
+use App\Models\StripeTransaction;
 use Filament\Widgets\ChartWidget;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
 use Flowframe\Trend\Trend;
 use Flowframe\Trend\TrendValue;
-use App\Models\StripeTransaction;
 
 class MrrChartStatsWidget extends ChartWidget
 {

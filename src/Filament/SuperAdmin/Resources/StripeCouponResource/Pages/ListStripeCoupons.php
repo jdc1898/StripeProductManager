@@ -2,9 +2,9 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripeCouponResource\Pages;
 
+use App\Filament\SuperAdmin\Resources\StripeCouponResource;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\SuperAdmin\Resources\StripeCouponResource;
 
 class ListStripeCoupons extends ListRecords
 {

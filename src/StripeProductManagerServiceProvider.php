@@ -9,12 +9,12 @@ class StripeProductManagerServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/config/stripe-product-manager.php',
+            __DIR__.'/config/stripe-product-manager.php',
             'stripe-product-manager'
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/config/guards.php',
+            __DIR__.'/config/guards.php',
             'auth.guards'
         );
 
@@ -26,26 +26,23 @@ class StripeProductManagerServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
-        if (file_exists(__DIR__ . '/routes/web.php')) {
-            $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
+        if (file_exists(__DIR__.'/routes/web.php')) {
+            $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         }
 
-        if (file_exists(__DIR__ . '/routes/api.php')) {
-            $this->loadRoutesFrom(__DIR__ . '/routes/api.php');
+        if (file_exists(__DIR__.'/routes/api.php')) {
+            $this->loadRoutesFrom(__DIR__.'/routes/api.php');
         }
 
-
-        if (is_dir(__DIR__ . '/resources/views')) {
-            $this->loadViewsFrom(__DIR__ . '/resources/views', 'stripe-product-manager');
+        if (is_dir(__DIR__.'/resources/views')) {
+            $this->loadViewsFrom(__DIR__.'/resources/views', 'stripe-product-manager');
         }
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                \Fullstack\StripeProductManager\Console\Commands\TestPackageCommand::class,
                 \Fullstack\StripeProductManager\Console\Commands\InstallPackageCommand::class,
-                \Fullstack\StripeProductManager\Console\Commands\FixPublishedNamespacesCommand::class,
 
                 // Stripe commands
                 \Fullstack\StripeProductManager\Console\Commands\Stripe\FetchAllStripeData::class,
@@ -63,17 +60,17 @@ class StripeProductManagerServiceProvider extends ServiceProvider
 
             // One single publish group
             $this->publishes([
-                __DIR__ . '/config/stripe-product-manager.php' => config_path('stripe-product-manager.php'),
-                __DIR__ . '/database/migrations' => database_path('migrations'),
-                __DIR__ . '/database/seeders' => database_path('seeders'),
-                __DIR__ . '/Models' => app_path('Models'),
-                __DIR__ . '/Filament' => app_path('Filament'),
-                __DIR__ . '/Providers/Filament' => app_path('Providers/Filament'),
-                __DIR__ . '/Services/Stripe' => app_path('Services/Stripe'),
-                __DIR__ . '/Jobs' => app_path('Jobs'),
-                __DIR__ . '/Traits' => app_path('Traits'),
-                __DIR__ . '/Http/Middleware' => app_path('Http/Middleware'),
-                __DIR__ . '/Resources/views/components' => resource_path('views/components'),
+                __DIR__.'/config/stripe-product-manager.php' => config_path('stripe-product-manager.php'),
+                __DIR__.'/database/migrations' => database_path('migrations'),
+                __DIR__.'/database/seeders' => database_path('seeders'),
+                __DIR__.'/Models' => app_path('Models'),
+                __DIR__.'/Filament' => app_path('Filament'),
+                __DIR__.'/Providers/Filament' => app_path('Providers/Filament'),
+                __DIR__.'/Services/Stripe' => app_path('Services/Stripe'),
+                __DIR__.'/Jobs' => app_path('Jobs'),
+                __DIR__.'/Traits' => app_path('Traits'),
+                __DIR__.'/Http/Middleware' => app_path('Http/Middleware'),
+                __DIR__.'/Resources/views/components' => resource_path('views/components'),
 
             ], 'stripe-product-manager');
         }

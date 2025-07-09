@@ -51,7 +51,7 @@ class FetchAllStripeData extends Command
         $detailed = $this->option('detailed');
 
         // Check environment configuration and Stripe connection
-        if (!$this->checkEnvironmentAndStripeConnection()) {
+        if (! $this->checkEnvironmentAndStripeConnection()) {
             return 1;
         }
 
@@ -60,13 +60,14 @@ class FetchAllStripeData extends Command
 
         if (empty($commands)) {
             $this->error('No commands to run. Please specify which data types to fetch.');
+
             return 1;
         }
 
         $this->info('Starting Stripe data fetch...');
-        $this->info('Commands to run: ' . implode(', ', array_keys($commands)));
-        $this->info('Limit: ' . $limit . ' records per type');
-        $this->info('Save to database: ' . ($save ? 'Yes' : 'No'));
+        $this->info('Commands to run: '.implode(', ', array_keys($commands)));
+        $this->info('Limit: '.$limit.' records per type');
+        $this->info('Save to database: '.($save ? 'Yes' : 'No'));
         $this->newLine();
 
         $results = [];
@@ -82,13 +83,13 @@ class FetchAllStripeData extends Command
                 if ($result['success']) {
                     $this->info("✓ $name completed successfully");
                 } else {
-                    $this->error("✗ $name failed: " . $result['error']);
+                    $this->error("✗ $name failed: ".$result['error']);
                 }
             } catch (\Exception $e) {
-                $this->error("✗ $name failed with exception: " . $e->getMessage());
+                $this->error("✗ $name failed with exception: ".$e->getMessage());
                 $results[$name] = [
                     'success' => false,
-                    'error' => $e->getMessage()
+                    'error' => $e->getMessage(),
                 ];
             }
 
@@ -101,16 +102,18 @@ class FetchAllStripeData extends Command
         $this->info('=== Summary ===');
         $this->info("Total time: {$duration}s");
 
-        $successCount = count(array_filter($results, fn($r) => $r['success']));
+        $successCount = count(array_filter($results, fn ($r) => $r['success']));
         $totalCount = count($results);
 
         $this->info("Commands completed: $successCount/$totalCount");
 
         if ($successCount === $totalCount) {
             $this->info('✓ All commands completed successfully!');
+
             return 0;
         } else {
             $this->warn('⚠ Some commands failed. Check the output above for details.');
+
             return 1;
         }
     }
@@ -140,7 +143,7 @@ class FetchAllStripeData extends Command
             }
         }
 
-        if (!empty($specificCommands)) {
+        if (! empty($specificCommands)) {
             return $specificCommands;
         }
 
@@ -170,7 +173,7 @@ class FetchAllStripeData extends Command
             $args[] = '--detailed';
         }
 
-        $fullCommand = "php artisan $command " . implode(' ', $args);
+        $fullCommand = "php artisan $command ".implode(' ', $args);
 
         $this->line("Running: $fullCommand");
 
@@ -180,13 +183,13 @@ class FetchAllStripeData extends Command
             return [
                 'success' => true,
                 'output' => $process->output(),
-                'command' => $fullCommand
+                'command' => $fullCommand,
             ];
         } else {
             return [
                 'success' => false,
                 'error' => $process->errorOutput(),
-                'command' => $fullCommand
+                'command' => $fullCommand,
             ];
         }
     }
@@ -199,8 +202,9 @@ class FetchAllStripeData extends Command
         $this->info('Checking environment configuration and Stripe connection...');
 
         // Check if .env file exists
-        if (!file_exists(base_path('.env'))) {
+        if (! file_exists(base_path('.env'))) {
             $this->error('❌ .env file not found. Please create a .env file with your Stripe configuration.');
+
             return false;
         }
 
@@ -218,12 +222,13 @@ class FetchAllStripeData extends Command
             }
         }
 
-        if (!empty($missingVars)) {
+        if (! empty($missingVars)) {
             $this->error('❌ Missing required environment variables:');
             foreach ($missingVars as $var) {
                 $this->error("   - $var");
             }
             $this->error('Please add these variables to your .env file.');
+
             return false;
         }
 
@@ -234,8 +239,9 @@ class FetchAllStripeData extends Command
             $this->info('Testing Stripe connection...');
 
             // Check if Stripe PHP SDK is available
-            if (!class_exists('\Stripe\Stripe')) {
+            if (! class_exists('\Stripe\Stripe')) {
                 $this->error('❌ Stripe PHP SDK not found. Please install it with: composer require stripe/stripe-php');
+
                 return false;
             }
 
@@ -249,28 +255,34 @@ class FetchAllStripeData extends Command
             if ($account && isset($account->id)) {
                 $this->info('✅ Stripe connection successful');
                 $this->info("   Account ID: {$account->id}");
-                $this->info("   Live mode: " . ($account->charges_enabled ? 'Yes' : 'No'));
+                $this->info('   Live mode: '.($account->charges_enabled ? 'Yes' : 'No'));
+
                 return true;
             } else {
                 $this->error('❌ Stripe connection failed: Unable to retrieve account information');
+
                 return false;
             }
 
         } catch (\Stripe\Exception\AuthenticationException $e) {
             $this->error('❌ Stripe authentication failed: Invalid API key');
             $this->error("   Error: {$e->getMessage()}");
+
             return false;
         } catch (\Stripe\Exception\ApiConnectionException $e) {
             $this->error('❌ Stripe connection failed: Network error');
             $this->error("   Error: {$e->getMessage()}");
+
             return false;
         } catch (\Stripe\Exception\ApiErrorException $e) {
             $this->error('❌ Stripe API error');
             $this->error("   Error: {$e->getMessage()}");
+
             return false;
         } catch (\Exception $e) {
             $this->error('❌ Unexpected error while testing Stripe connection');
             $this->error("   Error: {$e->getMessage()}");
+
             return false;
         }
     }

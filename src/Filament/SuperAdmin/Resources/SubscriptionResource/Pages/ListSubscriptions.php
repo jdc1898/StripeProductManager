@@ -2,10 +2,10 @@
 
 namespace App\Filament\SuperAdmin\Resources\SubscriptionResource\Pages;
 
+use App\Filament\SuperAdmin\Resources\SubscriptionResource;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\SuperAdmin\Resources\SubscriptionResource;
 
 class ListSubscriptions extends ListRecords
 {

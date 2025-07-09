@@ -2,8 +2,8 @@
 
 namespace Fullstack\StripeProductManager\Console\Commands\Stripe;
 
-use Illuminate\Console\Command;
 use App\Services\Stripe\StripeService;
+use Illuminate\Console\Command;
 
 class FetchStripeCustomers extends Command
 {
@@ -50,7 +50,7 @@ class FetchStripeCustomers extends Command
             $this->info("Filtering by creation date: $created");
         }
         if ($includeDeleted) {
-            $this->info("Including deleted customers");
+            $this->info('Including deleted customers');
         }
 
         $stripeService = app(StripeService::class);
@@ -74,7 +74,7 @@ class FetchStripeCustomers extends Command
             }
             if ($created) {
                 $params['created'] = [
-                    'gte' => strtotime($created)
+                    'gte' => strtotime($created),
                 ];
             }
 
@@ -82,14 +82,15 @@ class FetchStripeCustomers extends Command
 
             if (empty($customers->data)) {
                 $hasMore = false;
+
                 break;
             }
 
             // Filter out deleted customers unless specifically requested
             $filteredCustomers = $customers->data;
-            if (!$includeDeleted) {
-                $filteredCustomers = array_filter($customers->data, function($customer) {
-                    return !$customer->deleted;
+            if (! $includeDeleted) {
+                $filteredCustomers = array_filter($customers->data, function ($customer) {
+                    return ! $customer->deleted;
                 });
             }
 
@@ -98,7 +99,7 @@ class FetchStripeCustomers extends Command
 
             // Check if there are more pages
             $hasMore = $customers->has_more;
-            if ($hasMore && !empty($customers->data)) {
+            if ($hasMore && ! empty($customers->data)) {
                 $startingAfter = end($customers->data)->id;
             }
 
@@ -107,6 +108,7 @@ class FetchStripeCustomers extends Command
 
         if (empty($allCustomers)) {
             $this->warn('No customers found in Stripe matching your criteria.');
+
             return 0;
         }
 
@@ -216,8 +218,9 @@ class FetchStripeCustomers extends Command
             $this->info("Email-linked customers: $linked");
         }
 
-        $this->info("Total customers fetched: " . count($allCustomers));
+        $this->info('Total customers fetched: '.count($allCustomers));
         $this->info('Done!');
+
         return 0;
     }
 }

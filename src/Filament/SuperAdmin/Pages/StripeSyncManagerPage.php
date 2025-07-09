@@ -2,6 +2,8 @@
 
 namespace App\Filament\SuperAdmin\Pages;
 
+use App\Models\StripeProduct;
+use App\Models\StripeSyncLog;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Tables\Actions\Action;
@@ -10,8 +12,6 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
-use App\Models\StripeProduct;
-use App\Models\StripeSyncLog;
 
 class StripeSyncManagerPage extends Page implements HasTable
 {

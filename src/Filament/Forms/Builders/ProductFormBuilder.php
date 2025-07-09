@@ -338,7 +338,8 @@ class ProductFormBuilder
                 ])
                 ->default('volume')
                 ->live()
-                ->visible(fn (Get $get): bool => $get('billing_type') === 'recurring' &&
+                ->visible(
+                    fn (Get $get): bool => $get('billing_type') === 'recurring' &&
                     $get('recurring_pricing_model') === 'tiered'
                 ),
 
@@ -515,7 +516,8 @@ class ProductFormBuilder
                         )
                         ->hidden(fn (Get $get): bool => $get('recurring_pricing_model') !== 'usage-based'),
                 ])
-                ->visible(fn (Get $get): bool => $get('billing_type') === 'recurring' &&
+                ->visible(
+                    fn (Get $get): bool => $get('billing_type') === 'recurring' &&
                     $get('recurring_pricing_model') === 'usage-based'
                 ),
 
@@ -614,7 +616,8 @@ class ProductFormBuilder
                 ->prefix('$')
                 ->numeric()
                 ->placeholder('0.00')
-                ->visible(fn (Get $get) => $get('pricing_model') === 'customer-defined' &&
+                ->visible(
+                    fn (Get $get) => $get('pricing_model') === 'customer-defined' &&
                     $get('suggest_amount')
                 ),
 
@@ -632,7 +635,8 @@ class ProductFormBuilder
                         ->numeric()
                         ->placeholder('0.00'),
                 ])
-                ->visible(fn (Get $get) => $get('pricing_model') === 'customer-defined' &&
+                ->visible(
+                    fn (Get $get) => $get('pricing_model') === 'customer-defined' &&
                     $get('set_limits')
                 ),
         ];

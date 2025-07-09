@@ -2,9 +2,9 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripeTaxCodeResource\Pages;
 
+use App\Filament\SuperAdmin\Resources\StripeTaxCodeResource;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\SuperAdmin\Resources\StripeTaxCodeResource;
 
 class ListStripeTaxCodes extends ListRecords
 {

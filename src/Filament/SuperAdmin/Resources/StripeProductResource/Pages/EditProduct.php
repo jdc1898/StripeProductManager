@@ -2,8 +2,8 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripeProductResource\Pages;
 
-use App\Filament\SuperAdmin\Resources\StripeProductResource;
 use App\Filament\Forms\Builders\ProductFormBuilder;
+use App\Filament\SuperAdmin\Resources\StripeProductResource;
 use App\Services\Stripe\ProductPricingService;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;

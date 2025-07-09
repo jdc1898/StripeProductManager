@@ -2,8 +2,8 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripePriceResource\Pages;
 
-use Filament\Resources\Pages\ViewRecord;
 use App\Filament\SuperAdmin\Resources\StripePriceResource;
+use Filament\Resources\Pages\ViewRecord;
 
 class ViewStripePrices extends ViewRecord
 {

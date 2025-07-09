@@ -2,8 +2,8 @@
 
 namespace Fullstack\StripeProductManager\Console\Commands\Stripe;
 
-use Illuminate\Console\Command;
 use App\Services\Stripe\StripeService;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
 class FetchStripePrices extends Command
@@ -63,10 +63,10 @@ class FetchStripePrices extends Command
             $this->info("Filtering by currency: $currency");
         }
         if ($includeInactive) {
-            $this->info("Including inactive prices");
+            $this->info('Including inactive prices');
         }
         if ($dashboardOnly) {
-            $this->info("Only showing dashboard-visible prices");
+            $this->info('Only showing dashboard-visible prices');
         }
 
         $stripeService = app(StripeService::class);
@@ -83,7 +83,8 @@ class FetchStripePrices extends Command
                 $allPrices = [$price];
                 $this->info("Successfully fetched price: $priceId");
             } catch (\Exception $e) {
-                $this->error("Failed to fetch price $priceId: " . $e->getMessage());
+                $this->error("Failed to fetch price $priceId: ".$e->getMessage());
+
                 return 1;
             }
         } else {
@@ -103,7 +104,7 @@ class FetchStripePrices extends Command
                 }
 
                 // Only filter by active if not including inactive
-                if (!$includeInactive) {
+                if (! $includeInactive) {
                     $params['active'] = true;
                 }
 
@@ -123,24 +124,25 @@ class FetchStripePrices extends Command
 
                 if (empty($prices->data)) {
                     $hasMore = false;
+
                     break;
                 }
 
                 // Filter by currency if specified (since Stripe API doesn't support this filter)
                 $filteredPrices = $prices->data;
                 if ($currency) {
-                    $filteredPrices = array_filter($prices->data, function($price) use ($currency) {
+                    $filteredPrices = array_filter($prices->data, function ($price) use ($currency) {
                         return strtolower($price->currency) === strtolower($currency);
                     });
                 }
 
                 // Filter for dashboard-visible prices only
                 if ($dashboardOnly) {
-                    $filteredPrices = array_filter($filteredPrices, function($price) {
+                    $filteredPrices = array_filter($filteredPrices, function ($price) {
                         // Only show prices that are active and have meaningful data
                         return $price->active &&
                                ($price->nickname || $price->unit_amount > 0) &&
-                               !empty($price->product);
+                               ! empty($price->product);
                     });
                 }
 
@@ -149,7 +151,7 @@ class FetchStripePrices extends Command
 
                 // Check if there are more pages
                 $hasMore = $prices->has_more;
-                if ($hasMore && !empty($prices->data)) {
+                if ($hasMore && ! empty($prices->data)) {
                     $startingAfter = end($prices->data)->id;
                 }
 
@@ -159,6 +161,7 @@ class FetchStripePrices extends Command
 
         if (empty($allPrices)) {
             $this->warn('No active prices found in Stripe matching your criteria.');
+
             return 0;
         }
 
@@ -166,7 +169,7 @@ class FetchStripePrices extends Command
         if ($raw) {
             $this->info('=== RAW API RESPONSE ===');
             foreach ($allPrices as $index => $price) {
-                $this->line("Price #" . ($index + 1) . ":");
+                $this->line('Price #'.($index + 1).':');
                 $this->line(json_encode($price, JSON_PRETTY_PRINT));
                 $this->line('');
             }
@@ -264,8 +267,9 @@ class FetchStripePrices extends Command
             $this->info("Saved prices: Created $created, Updated $updated");
         }
 
-        $this->info("Total prices fetched: " . count($allPrices));
+        $this->info('Total prices fetched: '.count($allPrices));
         $this->info('Done!');
+
         return 0;
     }
 }

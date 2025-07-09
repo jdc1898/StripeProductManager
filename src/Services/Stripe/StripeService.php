@@ -2,9 +2,9 @@
 
 namespace App\Services\Stripe;
 
-use App\Models\StripeProduct;
-use App\Models\StripePrice;
 use App\Models\StripeMeter;
+use App\Models\StripePrice;
+use App\Models\StripeProduct;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Stripe\PaymentMethod;
@@ -42,6 +42,7 @@ class StripeService
             return $product->id;
         } catch (Throwable $e) {
             Log::error('Stripe Product Create Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -57,6 +58,7 @@ class StripeService
             return $product->id;
         } catch (Throwable $e) {
             Log::error('Stripe Product Update Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -67,6 +69,7 @@ class StripeService
             $this->client->products->update($productId, ['active' => false]);
         } catch (Throwable $e) {
             Log::error('Stripe Product Archive Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -77,6 +80,7 @@ class StripeService
             return $this->client->products->retrieve($productId);
         } catch (Throwable $e) {
             Log::error('Stripe Product Retrieve Error', ['error' => $e->getMessage()]);
+
             return null;
         }
     }
@@ -107,6 +111,7 @@ class StripeService
             return $price->id;
         } catch (Throwable $e) {
             Log::error('Stripe Price Create Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -122,6 +127,7 @@ class StripeService
             return $price->id;
         } catch (Throwable $e) {
             Log::error('Stripe Price Update Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -132,6 +138,7 @@ class StripeService
             $this->client->prices->update($priceId, ['active' => false]);
         } catch (Throwable $e) {
             Log::error('Stripe Price Archive Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -142,6 +149,7 @@ class StripeService
             return $this->client->prices->retrieve($priceId);
         } catch (Throwable $e) {
             Log::error('Stripe Price Retrieve Error', ['error' => $e->getMessage()]);
+
             return null;
         }
     }
@@ -157,6 +165,7 @@ class StripeService
             $this->client->products->update($productId, ['default_price' => $priceId]);
         } catch (Throwable $e) {
             Log::error('Stripe Default Price Set Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -177,6 +186,7 @@ class StripeService
             return $customer->id;
         } catch (Throwable $e) {
             Log::error('Stripe Customer Create Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -187,6 +197,7 @@ class StripeService
             $this->client->customers->delete($customerId);
         } catch (Throwable $e) {
             Log::error('Stripe Customer Remove Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -206,6 +217,7 @@ class StripeService
             return $subscription->id;
         } catch (Throwable $e) {
             Log::error('Stripe Subscription Create Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -244,6 +256,7 @@ class StripeService
             return $coupon->id;
         } catch (Throwable $e) {
             Log::error('Stripe Coupon Create Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -263,6 +276,7 @@ class StripeService
 
         } catch (Throwable $e) {
             Log::error('Stripe Coupon Update Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -284,6 +298,7 @@ class StripeService
             $this->client->coupons->delete($couponId);
         } catch (Throwable $e) {
             Log::error('Stripe Coupon Archive Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -308,6 +323,7 @@ class StripeService
             return $promoCode->id;
         } catch (Throwable $e) {
             Log::error('Stripe Promo Code Create Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -340,6 +356,7 @@ class StripeService
             return $promoCode->id;
         } catch (Throwable $e) {
             Log::error('Stripe Promo Code Update Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -350,6 +367,7 @@ class StripeService
             $this->client->promotionCodes->update($promoCodeId, ['active' => false]);
         } catch (Throwable $e) {
             Log::error('Stripe Promo Code Archive Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -364,7 +382,6 @@ class StripeService
             return null;
         }
     }
-
 
     /**
      * Create Test Only Methods
@@ -392,6 +409,7 @@ class StripeService
             return $paymentMethod;
         } catch (Throwable $e) {
             Log::error('Stripe Test Payment Method Create Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -407,6 +425,7 @@ class StripeService
             return $clock->id;
         } catch (Throwable $e) {
             Log::error('Stripe Test Clock Create Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -441,6 +460,7 @@ class StripeService
             $this->client->testHelpers->testClocks->delete($clockId);
         } catch (Throwable $e) {
             Log::error('Stripe Delete Test Clock Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -544,6 +564,7 @@ class StripeService
             ]);
         } catch (Throwable $e) {
             Log::error('Stripe Usage Report Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
     }
@@ -551,7 +572,7 @@ class StripeService
     /**
      * Sync all products from Stripe to local database
      *
-     * @param array $options Sync options
+     * @param  array  $options  Sync options
      * @return array Sync results
      */
     public function syncProductsFromStripe(array $options = []): array
@@ -612,6 +633,7 @@ class StripeService
             }
         } catch (Throwable $e) {
             Log::error('Stripe Product Sync Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
 
@@ -621,7 +643,7 @@ class StripeService
     /**
      * Sync all prices from Stripe to local database
      *
-     * @param array $options Sync options
+     * @param  array  $options  Sync options
      * @return array Sync results
      */
     public function syncPricesFromStripe(array $options = []): array
@@ -648,8 +670,9 @@ class StripeService
                     // Find the local product by Stripe product ID
                     $localProduct = StripeProduct::where('product_id', $stripePrice->product)->first();
 
-                    if (!$localProduct) {
+                    if (! $localProduct) {
                         $results['skipped']++;
+
                         continue; // Skip if we don't have the product locally
                     }
 
@@ -693,16 +716,17 @@ class StripeService
             }
         } catch (Throwable $e) {
             Log::error('Stripe Price Sync Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
 
         return $results;
     }
 
-        /**
+    /**
      * Sync usage meters from Stripe to local database
      *
-     * @param array $options Sync options
+     * @param  array  $options  Sync options
      * @return array Sync results
      */
     public function syncUsageMetersFromStripe(array $options = []): array
@@ -729,8 +753,9 @@ class StripeService
                         // Find the local product by Stripe product ID
                         $localProduct = StripeProduct::where('product_id', $subscriptionItem->price->product)->first();
 
-                        if (!$localProduct) {
+                        if (! $localProduct) {
                             $results['skipped']++;
+
                             continue; // Skip if we don't have the product locally
                         }
 
@@ -769,6 +794,7 @@ class StripeService
             }
         } catch (Throwable $e) {
             Log::error('Stripe Usage Meter Sync Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
 
@@ -778,7 +804,7 @@ class StripeService
     /**
      * Sync all data from Stripe (products, prices, usage meters)
      *
-     * @param array $options Sync options
+     * @param  array  $options  Sync options
      * @return array Sync results
      */
     public function syncAllFromStripe(array $options = []): array
@@ -817,6 +843,7 @@ class StripeService
 
         } catch (Throwable $e) {
             Log::error('Stripe Full Sync Error', ['error' => $e->getMessage()]);
+
             throw $e;
         }
 

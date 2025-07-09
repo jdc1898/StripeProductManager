@@ -2,9 +2,9 @@
 
 namespace App\Filament\SuperAdmin\Resources\InvoiceResource\Pages;
 
+use App\Filament\SuperAdmin\Resources\InvoiceResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use App\Filament\SuperAdmin\Resources\InvoiceResource;
 
 class EditInvoice extends EditRecord
 {

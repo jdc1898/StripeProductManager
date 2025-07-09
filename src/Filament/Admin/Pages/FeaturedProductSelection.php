@@ -2,9 +2,9 @@
 
 namespace App\Filament\Admin\Pages;
 
-use Filament\Pages\Page;
 use App\Models\StripePrice;
 use App\Models\StripeProduct;
+use Filament\Pages\Page;
 use Illuminate\Support\Facades\Auth;
 
 class FeaturedProductSelection extends Page

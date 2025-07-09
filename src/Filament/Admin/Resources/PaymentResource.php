@@ -2,13 +2,13 @@
 
 namespace App\Filament\Admin\Resources;
 
+use App\Filament\Admin\Resources\PaymentResource\Pages;
+use App\Models\StripeTransaction;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use App\Filament\Admin\Resources\PaymentResource\Pages;
-use App\Models\StripeTransaction;
 use Illuminate\Support\Str;
 
 class PaymentResource extends Resource

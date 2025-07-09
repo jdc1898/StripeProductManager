@@ -2,8 +2,8 @@
 
 namespace Fullstack\StripeProductManager\Console\Commands\Stripe;
 
-use Illuminate\Console\Command;
 use App\Services\Stripe\StripeService;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
 class FetchStripeProducts extends Command
@@ -50,6 +50,7 @@ class FetchStripeProducts extends Command
 
             if (empty($products->data)) {
                 $hasMore = false;
+
                 break;
             }
 
@@ -58,7 +59,7 @@ class FetchStripeProducts extends Command
 
             // Check if there are more pages
             $hasMore = $products->has_more;
-            if ($hasMore && !empty($products->data)) {
+            if ($hasMore && ! empty($products->data)) {
                 $startingAfter = end($products->data)->id;
             }
 
@@ -67,6 +68,7 @@ class FetchStripeProducts extends Command
 
         if (empty($allProducts)) {
             $this->warn('No active products found in Stripe.');
+
             return 0;
         }
 
@@ -130,8 +132,9 @@ class FetchStripeProducts extends Command
             $this->info("Saved products: Created $created, Updated $updated");
         }
 
-        $this->info("Total products fetched: " . count($allProducts));
+        $this->info('Total products fetched: '.count($allProducts));
         $this->info('Done!');
+
         return 0;
     }
 }

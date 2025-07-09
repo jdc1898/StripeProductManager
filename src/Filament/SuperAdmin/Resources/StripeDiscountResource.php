@@ -2,12 +2,12 @@
 
 namespace App\Filament\SuperAdmin\Resources;
 
+use App\Filament\SuperAdmin\Resources\StripeDiscountResource\Pages;
+use App\Models\StripeDiscount;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
-use App\Filament\SuperAdmin\Resources\StripeDiscountResource\Pages;
-use App\Models\StripeDiscount;
 
 class StripeDiscountResource extends Resource
 {

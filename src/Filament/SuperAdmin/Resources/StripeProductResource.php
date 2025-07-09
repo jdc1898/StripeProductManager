@@ -2,38 +2,22 @@
 
 namespace App\Filament\SuperAdmin\Resources;
 
+use App\Filament\Forms\Builders\ProductFormBuilder;
 use App\Filament\SuperAdmin\Resources\StripeProductResource\Pages;
 use App\Filament\SuperAdmin\Resources\StripeProductResource\RelationManagers\PriceRelationManager;
 use App\Filament\SuperAdmin\Resources\StripeProductResource\Tables\StripeProductResourceTable;
 use App\Filament\SuperAdmin\Widgets\ProductStatsWidget;
-use App\Filament\Forms\Builders\ProductFormBuilder;
-use App\Http\Controllers\Product\ProductController;
-use App\Jobs\SyncProductWithStripe;
 // use Filament\Infolists\Components\Actions;
 // use Filament\Infolists\Components\Actions\Action;
 use App\Models\StripeProduct;
-use App\Services\Redbird\Redbird;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Infolists\Components\KeyValueEntry;
-use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\Section as InfolistSection;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
-use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Tables\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 
 class StripeProductResource extends Resource
 {
@@ -54,7 +38,7 @@ class StripeProductResource extends Resource
     public static function getHeaderWidgets(): array
     {
         return [
-            //ProductStatsWidget::class,
+            // ProductStatsWidget::class,
         ];
     }
 
@@ -123,26 +107,29 @@ class StripeProductResource extends Resource
                             ->label('Images')
                             ->listWithLineBreaks()
                             ->formatStateUsing(function ($state) {
-                                if (!$state || !is_array($state)) {
+                                if (! $state || ! is_array($state)) {
                                     return 'No images';
                                 }
+
                                 return collect($state)->map(fn ($url) => $url)->join("\n");
                             }),
                         TextEntry::make('marketing_features')
                             ->label('Marketing Features')
                             ->listWithLineBreaks()
                             ->formatStateUsing(function ($state) {
-                                if (!$state || !is_array($state)) {
+                                if (! $state || ! is_array($state)) {
                                     return 'No marketing features';
                                 }
+
                                 return collect($state)->map(fn ($feature) => $feature['name'] ?? 'Unknown feature')->join("\n");
                             }),
                         TextEntry::make('package_dimensions')
                             ->label('Package Dimensions')
                             ->formatStateUsing(function ($state) {
-                                if (!$state || !is_array($state)) {
+                                if (! $state || ! is_array($state)) {
                                     return 'No package dimensions';
                                 }
+
                                 return json_encode($state, JSON_PRETTY_PRINT);
                             }),
                     ]),

@@ -2,19 +2,18 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripeProductResource\RelationManagers;
 
-
 use App\Filament\Forms\PriceForm;
 use App\Models\StripePrice;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
-use Filament\Notifications\Notification;
-use Illuminate\Support\Facades\Artisan;
 
 class PriceRelationManager extends RelationManager
 {
@@ -38,7 +37,7 @@ class PriceRelationManager extends RelationManager
     {
         // For now, return a placeholder since we're not creating prices directly
         // This would need to be implemented based on your requirements
-        return new StripePrice();
+        return new StripePrice;
     }
 
     protected function handleRecordUpdate(Model $record, array $data): Model
@@ -93,9 +92,10 @@ class PriceRelationManager extends RelationManager
                 TextColumn::make('created')
                     ->label('Created')
                     ->formatStateUsing(function ($state) {
-                        if (!$state) {
+                        if (! $state) {
                             return 'N/A';
                         }
+
                         return \Carbon\Carbon::createFromTimestamp($state)->format('M j, Y g:i A');
                     })
                     ->sortable(),
@@ -111,11 +111,11 @@ class PriceRelationManager extends RelationManager
                     ->modalHeading('Activate Price')
                     ->modalDescription('This will make the price available for purchase. Are you sure you want to continue?')
                     ->modalSubmitActionLabel('Yes, activate price')
-                    ->visible(fn ($record) => !$record->active)
+                    ->visible(fn ($record) => ! $record->active)
                     ->action(function ($record) {
                         try {
                             // Update in Stripe
-                            //\App\Services\Redbird\Redbird::stripe()->prices->update($record->stripe_id, ['active' => true]);
+                            // \App\Services\Redbird\Redbird::stripe()->prices->update($record->stripe_id, ['active' => true]);
 
                             // Update local record
                             $record->active = true;
@@ -129,7 +129,7 @@ class PriceRelationManager extends RelationManager
                         } catch (\Exception $e) {
                             Notification::make()
                                 ->title('Error activating price')
-                                ->body('There was an error activating the price: ' . $e->getMessage())
+                                ->body('There was an error activating the price: '.$e->getMessage())
                                 ->danger()
                                 ->send();
                         }
@@ -147,7 +147,7 @@ class PriceRelationManager extends RelationManager
                     ->action(function ($record) {
                         try {
                             // Update in Stripe
-                            //\App\Services\Redbird\Redbird::stripe()->prices->update($record->stripe_id, ['active' => false]);
+                            // \App\Services\Redbird\Redbird::stripe()->prices->update($record->stripe_id, ['active' => false]);
 
                             // Update local record
                             $record->active = false;
@@ -161,7 +161,7 @@ class PriceRelationManager extends RelationManager
                         } catch (\Exception $e) {
                             Notification::make()
                                 ->title('Error deactivating price')
-                                ->body('There was an error deactivating the price: ' . $e->getMessage())
+                                ->body('There was an error deactivating the price: '.$e->getMessage())
                                 ->danger()
                                 ->send();
                         }
@@ -174,7 +174,7 @@ class PriceRelationManager extends RelationManager
                     ->before(function ($record) {
                         try {
                             // Archive in Stripe
-                            //\App\Services\Redbird\Redbird::stripe()->prices->update($record->stripe_id, ['active' => false]);
+                            // \App\Services\Redbird\Redbird::stripe()->prices->update($record->stripe_id, ['active' => false]);
 
                             Notification::make()
                                 ->title('Price archived in Stripe')

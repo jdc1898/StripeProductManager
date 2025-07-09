@@ -2,9 +2,8 @@
 
 namespace Fullstack\StripeProductManager\Console\Commands\Stripe;
 
-use Illuminate\Console\Command;
 use App\Services\Stripe\StripeService;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Console\Command;
 
 class FetchStripePromotionCodes extends Command
 {
@@ -50,6 +49,7 @@ class FetchStripePromotionCodes extends Command
 
             if (empty($promotionCodes->data)) {
                 $hasMore = false;
+
                 break;
             }
 
@@ -58,7 +58,7 @@ class FetchStripePromotionCodes extends Command
 
             // Check if there are more pages
             $hasMore = $promotionCodes->has_more;
-            if ($hasMore && !empty($promotionCodes->data)) {
+            if ($hasMore && ! empty($promotionCodes->data)) {
                 $startingAfter = end($promotionCodes->data)->id;
             }
 
@@ -67,6 +67,7 @@ class FetchStripePromotionCodes extends Command
 
         if (empty($allPromotionCodes)) {
             $this->warn('No promotion codes found in Stripe.');
+
             return 0;
         }
 
@@ -123,8 +124,9 @@ class FetchStripePromotionCodes extends Command
             $this->info("Saved promotion codes: Created $created, Updated $updated");
         }
 
-        $this->info("Total promotion codes fetched: " . count($allPromotionCodes));
+        $this->info('Total promotion codes fetched: '.count($allPromotionCodes));
         $this->info('Done!');
+
         return 0;
     }
 }

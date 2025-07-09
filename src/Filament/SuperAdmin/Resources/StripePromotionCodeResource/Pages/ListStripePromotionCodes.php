@@ -2,9 +2,9 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripePromotionCodeResource\Pages;
 
+use App\Filament\SuperAdmin\Resources\StripePromotionCodeResource;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\SuperAdmin\Resources\StripePromotionCodeResource;
 
 class ListStripePromotionCodes extends ListRecords
 {

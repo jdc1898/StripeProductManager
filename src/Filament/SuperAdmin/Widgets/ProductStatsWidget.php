@@ -2,9 +2,9 @@
 
 namespace App\Filament\SuperAdmin\Widgets;
 
+use App\Models\StripeProduct;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use App\Models\StripeProduct;
 
 class ProductStatsWidget extends BaseWidget
 {

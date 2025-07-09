@@ -2,10 +2,10 @@
 
 namespace App\Filament\Admin\Resources\UserResource\Pages;
 
+use App\Filament\Admin\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables;
-use App\Filament\Admin\Resources\UserResource;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListUsers extends ListRecords

@@ -2,9 +2,9 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripeDiscountResource\Pages;
 
+use App\Filament\SuperAdmin\Resources\StripeDiscountResource;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\SuperAdmin\Resources\StripeDiscountResource;
 
 class ListStripeDiscounts extends ListRecords
 {

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Admin\Resources\PaymentResource\Pages;
 
+use App\Filament\Admin\Resources\PaymentResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\Admin\Resources\PaymentResource;
 
 class ListPayments extends ListRecords
 {

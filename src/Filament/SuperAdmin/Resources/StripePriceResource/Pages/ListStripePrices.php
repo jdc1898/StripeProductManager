@@ -4,9 +4,9 @@ namespace App\Filament\SuperAdmin\Resources\StripePriceResource\Pages;
 
 use App\Filament\SuperAdmin\Resources\StripePriceResource;
 use App\Filament\SuperAdmin\Widgets\PriceStatsWidget;
+use App\Models\StripePrice;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use App\Models\StripePrice;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListStripePrices extends ListRecords
@@ -68,7 +68,7 @@ class ListStripePrices extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            //PriceStatsWidget::class,
+            // PriceStatsWidget::class,
         ];
     }
 }

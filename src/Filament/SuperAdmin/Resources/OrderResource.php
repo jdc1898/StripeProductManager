@@ -2,12 +2,12 @@
 
 namespace App\Filament\SuperAdmin\Resources;
 
+use App\Filament\SuperAdmin\Resources\OrderResource\Pages;
+use App\Models\StripeInvoice;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use App\Filament\SuperAdmin\Resources\OrderResource\Pages;
-use App\Models\StripeInvoice;
 use Illuminate\Support\Str;
 
 class OrderResource extends Resource

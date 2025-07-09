@@ -2,8 +2,8 @@
 
 namespace App\Filament\SuperAdmin\Resources\InvoiceResource\Pages;
 
-use Filament\Resources\Pages\CreateRecord;
 use App\Filament\SuperAdmin\Resources\InvoiceResource;
+use Filament\Resources\Pages\CreateRecord;
 
 class CreateInvoice extends CreateRecord
 {

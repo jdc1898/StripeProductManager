@@ -2,6 +2,8 @@
 
 namespace App\Filament\SuperAdmin\Resources;
 
+use App\Filament\SuperAdmin\Resources\InvoiceResource\Pages;
+use App\Models\StripeInvoice;
 use Filament\Forms;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\TextInput;
@@ -10,8 +12,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use App\Filament\SuperAdmin\Resources\InvoiceResource\Pages;
-use App\Models\StripeInvoice;
 use Illuminate\Support\HtmlString;
 
 class InvoiceResource extends Resource

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\StripeInvoice;
 use App\Models\StripeTransaction;
 use App\Models\User;
@@ -10,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Subscription;
-
 use Stripe\Event;
 
 class StripeWebhookController extends Controller
@@ -28,6 +26,7 @@ class StripeWebhookController extends Controller
             $event = Event::constructFrom(json_decode($payload, true));
         } catch (\UnexpectedValueException $e) {
             Log::error('Stripe webhook: Invalid payload', ['error' => $e->getMessage()]);
+
             return response('Invalid payload', 400);
         }
 
@@ -41,45 +40,59 @@ class StripeWebhookController extends Controller
         switch ($event->type) {
             case 'charge.succeeded':
                 $this->handleChargeSucceeded($event->data->object);
+
                 break;
             case 'payment_intent.succeeded':
                 $this->handlePaymentIntentSucceeded($event->data->object);
+
                 break;
             case 'invoice.payment_succeeded':
                 $this->handleInvoicePaymentSucceeded($event->data->object);
+
                 break;
             case 'invoice.payment_failed':
                 $this->handleInvoicePaymentFailed($event->data->object);
+
                 break;
             case 'invoice.created':
                 $this->handleInvoiceCreated($event->data->object);
+
                 break;
             case 'invoice.updated':
                 $this->handleInvoiceUpdated($event->data->object);
+
                 break;
             case 'invoice.finalized':
                 $this->handleInvoiceFinalized($event->data->object);
+
                 break;
             case 'invoice.paid':
                 $this->handleInvoicePaid($event->data->object);
+
                 break;
             case 'invoice.voided':
                 $this->handleInvoiceVoided($event->data->object);
+
                 break;
             case 'customer.subscription.created':
                 $this->handleSubscriptionCreated($event->data->object);
+
                 break;
             case 'customer.subscription.updated':
                 $this->handleSubscriptionUpdated($event->data->object);
+
                 break;
             case 'customer.subscription.deleted':
                 $this->handleSubscriptionDeleted($event->data->object);
+
                 break;
             case 'v2.money_management.transaction.created':
                 $this->handleMoneyManagementTransactionCreated($event->data->object);
+
                 break;
             case 'v2.money_management.transaction.updated':
                 $this->handleMoneyManagementTransactionUpdated($event->data->object);
+
                 break;
             default:
                 Log::info('Unhandled Stripe webhook event', ['type' => $event->type]);
@@ -276,11 +289,12 @@ class StripeWebhookController extends Controller
      */
     protected function getUserIdFromCustomer($customerId)
     {
-        if (!$customerId) {
+        if (! $customerId) {
             return null;
         }
 
         $user = User::where('stripe_id', $customerId)->first();
+
         return $user ? $user->id : null;
     }
 

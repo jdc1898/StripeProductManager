@@ -2,8 +2,8 @@
 
 namespace Fullstack\StripeProductManager\Console\Commands\Stripe;
 
-use Illuminate\Console\Command;
 use App\Services\Stripe\StripeService;
+use Illuminate\Console\Command;
 
 class FetchStripeMeters extends Command
 {
@@ -43,7 +43,7 @@ class FetchStripeMeters extends Command
             $this->info("Filtering by status: $status");
         }
         if ($includeInactive) {
-            $this->info("Including inactive meters");
+            $this->info('Including inactive meters');
         }
 
         $stripeService = app(StripeService::class);
@@ -58,7 +58,7 @@ class FetchStripeMeters extends Command
             ];
 
             // Only filter by active status if not including inactive
-            if (!$includeInactive && !$status) {
+            if (! $includeInactive && ! $status) {
                 $params['status'] = 'active';
             } elseif ($status) {
                 $params['status'] = $status;
@@ -71,13 +71,15 @@ class FetchStripeMeters extends Command
             try {
                 $meters = $stripeService->getClient()->billing->meters->all($params);
             } catch (\Exception $e) {
-                $this->error("Error fetching meters: " . $e->getMessage());
-                $this->error("This might be because billing meters are only available in certain Stripe accounts or API versions.");
+                $this->error('Error fetching meters: '.$e->getMessage());
+                $this->error('This might be because billing meters are only available in certain Stripe accounts or API versions.');
+
                 return 1;
             }
 
             if (empty($meters->data)) {
                 $hasMore = false;
+
                 break;
             }
 
@@ -86,7 +88,7 @@ class FetchStripeMeters extends Command
 
             // Check if there are more pages
             $hasMore = $meters->has_more;
-            if ($hasMore && !empty($meters->data)) {
+            if ($hasMore && ! empty($meters->data)) {
                 $startingAfter = end($meters->data)->id;
             }
 
@@ -95,6 +97,7 @@ class FetchStripeMeters extends Command
 
         if (empty($allMeters)) {
             $this->warn('No meters found in Stripe matching your criteria.');
+
             return 0;
         }
 
@@ -169,8 +172,9 @@ class FetchStripeMeters extends Command
             $this->info("Saved meters: Created $created, Updated $updated");
         }
 
-        $this->info("Total meters fetched: " . count($allMeters));
+        $this->info('Total meters fetched: '.count($allMeters));
         $this->info('Done!');
+
         return 0;
     }
 }

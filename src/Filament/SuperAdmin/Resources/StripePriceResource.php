@@ -2,12 +2,12 @@
 
 namespace App\Filament\SuperAdmin\Resources;
 
-use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Table;
 use App\Filament\SuperAdmin\Resources\StripePriceResource\Pages;
 use App\Filament\SuperAdmin\Widgets\PriceStatsWidget;
 use App\Models\StripePrice;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
 class StripePriceResource extends Resource

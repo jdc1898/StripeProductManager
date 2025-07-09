@@ -2,9 +2,9 @@
 
 namespace App\Filament\SuperAdmin\Resources\TransactionResource\Pages;
 
+use App\Filament\SuperAdmin\Resources\TransactionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use App\Filament\SuperAdmin\Resources\TransactionResource;
 
 class EditTransaction extends EditRecord
 {

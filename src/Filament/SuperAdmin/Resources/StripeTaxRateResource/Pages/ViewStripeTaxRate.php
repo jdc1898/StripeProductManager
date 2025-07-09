@@ -2,8 +2,8 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripeTaxRateResource\Pages;
 
-use Filament\Resources\Pages\ViewRecord;
 use App\Filament\SuperAdmin\Resources\StripeTaxRateResource;
+use Filament\Resources\Pages\ViewRecord;
 
 class ViewStripeTaxRate extends ViewRecord
 {

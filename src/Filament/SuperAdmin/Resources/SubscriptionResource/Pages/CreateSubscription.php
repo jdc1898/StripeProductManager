@@ -2,8 +2,8 @@
 
 namespace App\Filament\SuperAdmin\Resources\SubscriptionResource\Pages;
 
-use Filament\Resources\Pages\CreateRecord;
 use App\Filament\SuperAdmin\Resources\SubscriptionResource;
+use Filament\Resources\Pages\CreateRecord;
 
 class CreateSubscription extends CreateRecord
 {

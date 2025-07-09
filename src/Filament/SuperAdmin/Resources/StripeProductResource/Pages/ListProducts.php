@@ -20,7 +20,6 @@ class ListProducts extends ListRecords
         ];
     }
 
-
     public function getTabs(): array
     {
         return [
@@ -45,6 +44,4 @@ class ListProducts extends ListRecords
     {
         return 'active';
     }
-
-
 }

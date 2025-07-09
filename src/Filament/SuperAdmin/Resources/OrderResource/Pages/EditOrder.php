@@ -2,9 +2,9 @@
 
 namespace App\Filament\SuperAdmin\Resources\OrderResource\Pages;
 
+use App\Filament\SuperAdmin\Resources\OrderResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use App\Filament\SuperAdmin\Resources\OrderResource;
 
 class EditOrder extends EditRecord
 {

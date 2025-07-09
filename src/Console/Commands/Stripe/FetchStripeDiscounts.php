@@ -2,9 +2,8 @@
 
 namespace Fullstack\StripeProductManager\Console\Commands\Stripe;
 
-use Illuminate\Console\Command;
 use App\Services\Stripe\StripeService;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Console\Command;
 
 class FetchStripeDiscounts extends Command
 {
@@ -36,7 +35,7 @@ class FetchStripeDiscounts extends Command
         $fetched = 0;
 
         // Fetch discounts from customers
-        $this->info("Fetching discounts from customers...");
+        $this->info('Fetching discounts from customers...');
         $customers = $stripeService->getClient()->customers->all(['limit' => min(100, $limit)]);
 
         foreach ($customers->data as $customer) {
@@ -49,7 +48,7 @@ class FetchStripeDiscounts extends Command
         }
 
         // Fetch discounts from subscriptions
-        $this->info("Fetching discounts from subscriptions...");
+        $this->info('Fetching discounts from subscriptions...');
         $subscriptions = $stripeService->getClient()->subscriptions->all(['limit' => min(100, $limit)]);
 
         foreach ($subscriptions->data as $subscription) {
@@ -63,6 +62,7 @@ class FetchStripeDiscounts extends Command
 
         if (empty($allDiscounts)) {
             $this->warn('No discounts found in Stripe customers or subscriptions.');
+
             return 0;
         }
 
@@ -116,8 +116,9 @@ class FetchStripeDiscounts extends Command
             $this->info("Saved discounts: Created $created, Updated $updated");
         }
 
-        $this->info("Total discounts fetched: " . count($allDiscounts));
+        $this->info('Total discounts fetched: '.count($allDiscounts));
         $this->info('Done!');
+
         return 0;
     }
 }

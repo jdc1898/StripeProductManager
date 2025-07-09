@@ -2,9 +2,9 @@
 
 namespace App\Filament\SuperAdmin\Resources\SubscriptionResource\Pages;
 
+use App\Filament\SuperAdmin\Resources\SubscriptionResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use App\Filament\SuperAdmin\Resources\SubscriptionResource;
 
 class EditSubscription extends EditRecord
 {

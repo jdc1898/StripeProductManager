@@ -2,9 +2,8 @@
 
 namespace Fullstack\StripeProductManager\Console\Commands\Stripe;
 
-use Illuminate\Console\Command;
 use App\Services\Stripe\StripeService;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Console\Command;
 
 class FetchStripeTaxRates extends Command
 {
@@ -50,6 +49,7 @@ class FetchStripeTaxRates extends Command
 
             if (empty($taxRates->data)) {
                 $hasMore = false;
+
                 break;
             }
 
@@ -58,7 +58,7 @@ class FetchStripeTaxRates extends Command
 
             // Check if there are more pages
             $hasMore = $taxRates->has_more;
-            if ($hasMore && !empty($taxRates->data)) {
+            if ($hasMore && ! empty($taxRates->data)) {
                 $startingAfter = end($taxRates->data)->id;
             }
 
@@ -67,6 +67,7 @@ class FetchStripeTaxRates extends Command
 
         if (empty($allTaxRates)) {
             $this->warn('No tax rates found in Stripe.');
+
             return 0;
         }
 
@@ -74,7 +75,7 @@ class FetchStripeTaxRates extends Command
             return [
                 $taxRate->id,
                 $taxRate->display_name ?? 'N/A',
-                $taxRate->percentage ? $taxRate->percentage . '%' : 'N/A',
+                $taxRate->percentage ? $taxRate->percentage.'%' : 'N/A',
                 $taxRate->country ?? 'Global',
                 $taxRate->state ?? 'N/A',
                 $taxRate->jurisdiction ?? 'N/A',
@@ -125,8 +126,9 @@ class FetchStripeTaxRates extends Command
             $this->info("Saved tax rates: Created $created, Updated $updated");
         }
 
-        $this->info("Total tax rates fetched: " . count($allTaxRates));
+        $this->info('Total tax rates fetched: '.count($allTaxRates));
         $this->info('Done!');
+
         return 0;
     }
 }

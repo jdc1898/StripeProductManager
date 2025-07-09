@@ -2,37 +2,25 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripeProductResource\Tables;
 
-
-use App\Models\StripeProduct;
-use App\Models\StripePrice;
-//use App\Services\Redbird\Redbird;
-use App\Jobs\SyncProductWithStripe;
-use Filament\Notifications\Notification;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
-use Illuminate\Support\HtmlString;
-use App\Http\Controllers\Price\PriceController;
-use App\Filament\SuperAdmin\Resources\PriceResource;
-use App\Filament\SuperAdmin\Resources\StripeProductResource\Pages;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
-use Filament\Tables\Table;
-use Filament\Tables\Actions;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\RestoreAction;
-use Filament\Tables\Actions\DeleteAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Actions\CreateAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\RestoreBulkAction;
-use Filament\Tables\Actions\BulkAction;
-use Filament\Tables\Tabs\Tab;
-use Illuminate\Support\Facades\Artisan;
 use App\Filament\SuperAdmin\Resources\StripePriceResource;
+// use App\Services\Redbird\Redbird;
+use App\Filament\SuperAdmin\Resources\StripeProductResource\Pages;
+use App\Models\StripeProduct;
+use Filament\Notifications\Notification;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+use Filament\Tables\Tabs\Tab;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Str;
 
 class StripeProductResourceTable
 {
@@ -116,7 +104,7 @@ class StripeProductResourceTable
                 TextColumn::make('created')
                     ->label('Created in Stripe')
                     ->formatStateUsing(function ($state) {
-                        if (!$state) {
+                        if (! $state) {
                             return 'N/A';
                         }
 
@@ -137,7 +125,7 @@ class StripeProductResourceTable
                 TextColumn::make('updated')
                     ->label('Updated in Stripe')
                     ->formatStateUsing(function ($state) {
-                        if (!$state) {
+                        if (! $state) {
                             return 'N/A';
                         }
 
@@ -165,11 +153,11 @@ class StripeProductResourceTable
                         ->modalHeading('Activate Product')
                         ->modalDescription('This will make the product available in Stripe. Are you sure you want to continue?')
                         ->modalSubmitActionLabel('Yes, activate product')
-                        ->visible(fn ($record, $livewire) => !$record->active && $livewire->activeTab === 'all')
+                        ->visible(fn ($record, $livewire) => ! $record->active && $livewire->activeTab === 'all')
                         ->action(function (StripeProduct $record) {
                             try {
                                 // Update in Stripe
-                                //Redbird::stripe()->products->update($record->stripe_id, ['active' => true]);
+                                // Redbird::stripe()->products->update($record->stripe_id, ['active' => true]);
 
                                 // Update local record
                                 $record->active = true;
@@ -183,7 +171,7 @@ class StripeProductResourceTable
                             } catch (\Exception $e) {
                                 Notification::make()
                                     ->title('Error activating product')
-                                    ->body('There was an error activating the product: ' . $e->getMessage())
+                                    ->body('There was an error activating the product: '.$e->getMessage())
                                     ->danger()
                                     ->send();
                             }
@@ -200,7 +188,7 @@ class StripeProductResourceTable
                         ->action(function (StripeProduct $record) {
                             try {
                                 // Update in Stripe
-                                //Redbird::stripe()->products->update($record->stripe_id, ['active' => false]);
+                                // Redbird::stripe()->products->update($record->stripe_id, ['active' => false]);
 
                                 // Update local record
                                 $record->active = false;
@@ -275,9 +263,9 @@ class StripeProductResourceTable
                             }
                         }),
                 ])
-                ->icon('heroicon-m-ellipsis-vertical')
-                ->dropdown(true)
-                ->dropdownPlacement('bottom-start'),
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->dropdown(true)
+                    ->dropdownPlacement('bottom-start'),
             ])
             ->headerActions([
                 CreateAction::make()

@@ -2,8 +2,8 @@
 
 namespace App\Filament\SuperAdmin\Resources\StripePromotionCodeResource\Pages;
 
-use Filament\Resources\Pages\ViewRecord;
 use App\Filament\SuperAdmin\Resources\StripePromotionCodeResource;
+use Filament\Resources\Pages\ViewRecord;
 
 class ViewStripePromotionCode extends ViewRecord
 {

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Admin\Resources\UserResource\Pages;
 
+use App\Filament\Admin\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
-use App\Filament\Admin\Resources\UserResource;
 
 class EditUser extends EditRecord
 {

@@ -2,9 +2,8 @@
 
 namespace Fullstack\StripeProductManager\Console\Commands\Stripe;
 
-use Illuminate\Console\Command;
 use App\Services\Stripe\StripeService;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Console\Command;
 
 class FetchStripeCoupons extends Command
 {
@@ -50,6 +49,7 @@ class FetchStripeCoupons extends Command
 
             if (empty($coupons->data)) {
                 $hasMore = false;
+
                 break;
             }
 
@@ -58,7 +58,7 @@ class FetchStripeCoupons extends Command
 
             // Check if there are more pages
             $hasMore = $coupons->has_more;
-            if ($hasMore && !empty($coupons->data)) {
+            if ($hasMore && ! empty($coupons->data)) {
                 $startingAfter = end($coupons->data)->id;
             }
 
@@ -67,17 +67,18 @@ class FetchStripeCoupons extends Command
 
         if (empty($allCoupons)) {
             $this->warn('No coupons found in Stripe.');
+
             return 0;
         }
 
         $rows = array_map(function ($coupon) {
             $discount = '';
             if ($coupon->percent_off) {
-                $discount = $coupon->percent_off . '%';
+                $discount = $coupon->percent_off.'%';
             } elseif ($coupon->amount_off) {
                 $currency = $coupon->currency ?? 'usd';
                 $amount = number_format($coupon->amount_off / 100, 2);
-                $discount = '$' . $amount . ' ' . strtoupper($currency);
+                $discount = '$'.$amount.' '.strtoupper($currency);
             } else {
                 $discount = 'N/A';
             }
@@ -137,8 +138,9 @@ class FetchStripeCoupons extends Command
             $this->info("Saved coupons: Created $created, Updated $updated");
         }
 
-        $this->info("Total coupons fetched: " . count($allCoupons));
+        $this->info('Total coupons fetched: '.count($allCoupons));
         $this->info('Done!');
+
         return 0;
     }
 }
