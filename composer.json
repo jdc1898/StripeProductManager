@@ -1,0 +1,38 @@
+{
+    "name": "fullstack/stripe-product-manager",
+    "type": "library",
+    "description": "A library for managing Stripe products and prices",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Church",
+            "email": "david.church@fullstackllc.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Fullstack\\StripeProductManager\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^11.0|^12.0",
+        "laravel/cashier": "^15.0",
+        "filament/filament": "^3.3",
+        "spatie/laravel-permission": "^6.0",
+        "flowframe/laravel-trend": "^0.4"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fullstack\\StripeProductManager\\StripeProductManagerServiceProvider"
+            ],
+            "aliases": {
+                "StripeProductManager": "Fullstack\\StripeProductManager\\StripeProductManagerServiceProvider"
+            }
+        }
+    },
+    "require-dev": {
+        "laravel/pint": "^1.23"
+    }
+}
