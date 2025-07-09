@@ -18,4 +18,9 @@ return [
         'driver' => 'session',
         'provider' => 'users',
     ],
+    'member' => [
+        'driver' => 'session',
+        'provider' => 'users',
+    ],
+
 ];

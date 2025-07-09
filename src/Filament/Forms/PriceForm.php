@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\SuperAdmin\Forms;
+namespace App\Filament\Forms;
 
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
@@ -13,9 +13,9 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use App\Forms\Components\RadioCard;
-use App\Forms\Components\SelectCard;
-use App\Forms\Components\TieredPricing;
+use App\Filament\Forms\Components\RadioCard;
+use App\Filament\Forms\Components\SelectCard;
+use App\Filament\Forms\Components\TieredPricing;
 use App\Models\StripeProduct;
 use Illuminate\Support\Str;
 
