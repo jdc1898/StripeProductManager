@@ -6,7 +6,7 @@ use App\Filament\SuperAdmin\Resources\StripePriceResource;
 use App\Filament\SuperAdmin\Widgets\PriceStatsWidget;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use Fullstack\StripeProductManager\Models\StripePrice;
+use App\Models\StripePrice;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListStripePrices extends ListRecords
