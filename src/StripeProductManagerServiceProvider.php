@@ -20,7 +20,7 @@ class StripeProductManagerServiceProvider extends ServiceProvider
 
         $this->app['router']->aliasMiddleware(
             'stripe.guard',
-            \Fullstack\StripeProductManager\Http\Middleware\StripeGuardMiddleware::class
+            \App\Http\Middleware\StripeGuardMiddleware::class
         );
     }
 
@@ -31,6 +31,11 @@ class StripeProductManagerServiceProvider extends ServiceProvider
         if (file_exists(__DIR__ . '/routes/web.php')) {
             $this->loadRoutesFrom(__DIR__ . '/routes/web.php');
         }
+
+        if (file_exists(__DIR__ . '/routes/api.php')) {
+            $this->loadRoutesFrom(__DIR__ . '/routes/api.php');
+        }
+
 
         if (is_dir(__DIR__ . '/resources/views')) {
             $this->loadViewsFrom(__DIR__ . '/resources/views', 'stripe-product-manager');
@@ -65,6 +70,11 @@ class StripeProductManagerServiceProvider extends ServiceProvider
                 __DIR__ . '/Filament' => app_path('Filament'),
                 __DIR__ . '/Providers/Filament' => app_path('Providers/Filament'),
                 __DIR__ . '/Services/Stripe' => app_path('Services/Stripe'),
+                __DIR__ . '/Jobs' => app_path('Jobs'),
+                __DIR__ . '/Traits' => app_path('Traits'),
+                __DIR__ . '/Http/Middleware' => app_path('Http/Middleware'),
+                __DIR__ . '/Resources/views/components' => resource_path('views/components'),
+
             ], 'stripe-product-manager');
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Fullstack\StripeProductManager\Traits;
+namespace App\Traits;
 
 use Spatie\Permission\Traits\HasRoles;
 
